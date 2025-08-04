@@ -1,5 +1,9 @@
+import {AuthLayout} from "../../components/Auth/AuthLayout.jsx";
+
 export const SignUp = () => {
     return(
-        <div>SignUp</div>
+        <AuthLayout>
+            <div>SignUp</div>
+        </AuthLayout>
     )
 }
