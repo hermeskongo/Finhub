@@ -7,7 +7,6 @@ export const ProfilPictureSelector = ({image, setImage, className}) => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0]
-        console.log(e)
         if(file) {
             setImage(file)
             const preview = URL.createObjectURL(file)
@@ -15,9 +14,6 @@ export const ProfilPictureSelector = ({image, setImage, className}) => {
         }
     }
 
-
-
-    console.log(previewUrl, image)
     const handleRemove = () => {
         setImage(null)
         setPreviewUrl(null)
@@ -41,7 +37,7 @@ export const ProfilPictureSelector = ({image, setImage, className}) => {
 
             {!image ? (
                 <div className="bg-cyan-200 h-20 w-20 rounded-full flex relative items-center">
-                    <LuUser className="w-8 h-8 text-white absolute left-6"/>
+                    <LuUser className="w-8 h-8 text-primary absolute left-6"/>
                     <button
                         type="button"
                         onClick={onChooseFile}
