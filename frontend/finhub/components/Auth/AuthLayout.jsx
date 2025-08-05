@@ -1,14 +1,14 @@
-import card_img from "../../public/finance.png"
+import card_img from "../../src/assets/finance.png"
 import {LuTrendingUpDown} from "react-icons/lu";
 export const AuthLayout = ({children}) => {
     return(
         <div className="flex">
-            <div className="w-screen h-screen md:w-[60vw] px-12 pt-8 pb-12 flex flex-col gap-[25%]">
+            <div className="w-screen h-screen md:w-[55vw] pl-20 pt-8 pb-12 flex flex-col">
                 <h1 className="font-semibold text-[28px] text-black">Finhub</h1>
                 {children}
             </div>
-            <div className="hidden h-screen md:block w-[40vw] overflow-hidden bg-gray-100 relative bg-cover bg-no-repeat bg-center p-8">
-                <div className="w-48 h-48 bg-[#67c9cb] rounded-[40px] absolute -top-7 -left-5"></div>
+            <div className="hidden h-screen md:block w-[45vw] overflow-hidden bg-gray-100 relative bg-cover bg-no-repeat bg-center p-8">
+                <div className="w-48 h-48 bg-primary rounded-[40px] absolute -top-7 -left-5"></div>
                 <div className="w-48 h-48 border-[20px] border-cyan-300 rounded-[40px] absolute top-[45%] right-0"></div>
                 <div className="w-48 h-48 bg-[#235e5c] rounded-[40px] absolute -bottom-7 -left-5"></div>
 
