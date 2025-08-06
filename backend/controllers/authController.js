@@ -49,3 +49,46 @@ export const register = async (req, res) => {
 
 }
 
+export const login = async (req, res) => {
+    const {email, password} = req.body
+
+    if(!email || !password) {
+        return res.status(400).json({
+            success: false,
+            message: "Tous les champs sont requis."
+        })
+    }
+
+    try {
+
+        const user = await User.findOne({email})
+        const isMatch = user.compare(password)
+
+        if(!user || !isMatch) {
+            return res.status(400).json({
+                success: false,
+                message: "Informations de connexions incorrects"
+            })
+        }
+
+        return res.json({
+            success: true,
+            message: "Connexion réussie !",
+            user: {
+                fullname: user.fullname,
+                email: user.email,
+                profileImg: user.profileImg
+            },
+            token: generateToken(user._id)
+        })
+
+    } catch (e) {
+        return res.status(400).json({
+            success: false,
+            message: e.message
+        })
+    }
+
+}
+
+
