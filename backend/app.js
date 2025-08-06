@@ -8,6 +8,7 @@ import { dirname } from "path";
 import {connectDB} from "./config/mongodb.js";
 import {authRoutes} from "./routes/authRoutes.js";
 import {uploadsDir} from "./config/uploadsDir.js";
+import {incomeRoutes} from "./routes/incomeRoutes.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -30,6 +31,8 @@ app
 
 app
     .use('/api/v1/auth', authRoutes)
+    .use('/api/v1/incomes', incomeRoutes)
+
 
 
 
