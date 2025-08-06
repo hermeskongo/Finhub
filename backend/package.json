@@ -1,0 +1,32 @@
+{
+  "name": "finhub",
+  "version": "1.0.0",
+  "description": "Finance track record",
+  "homepage": "https://github.com/hermeskongo/Finhub#readme",
+  "bugs": {
+    "url": "https://github.com/hermeskongo/Finhub/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hermeskongo/Finhub.git"
+  },
+  "license": "ISC",
+  "author": "hermeskongo",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.0",
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.10",
+    "xlsx": "^0.18.5"
+  }
+}
