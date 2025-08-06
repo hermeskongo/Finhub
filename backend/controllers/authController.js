@@ -109,3 +109,13 @@ export const getUser = async (req, res) => {
     
 }
 
+export const uploadImg = async (req, res) => {
+    if(!req.file) {
+        return res.status(400).json({
+            message: "Aucun fichié uploader"
+        })
+    }
+    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
+
+    return res.json({ imageUrl })
+}
