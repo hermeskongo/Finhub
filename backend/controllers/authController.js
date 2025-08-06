@@ -41,7 +41,7 @@ export const register = async (req, res) => {
 
 
     } catch (e) {
-        return res.status(400).json({
+        return res.status(500).json({
             message: e.message,
             success: false
         })
@@ -83,7 +83,7 @@ export const login = async (req, res) => {
         })
 
     } catch (e) {
-        return res.status(400).json({
+        return res.status(500).json({
             success: false,
             message: e.message
         })
@@ -91,4 +91,21 @@ export const login = async (req, res) => {
 
 }
 
+export const getUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password')
+        if(!user) {
+            return res.status(404).json({message: "Aucun utilisateur trouvé !", success: false})
+        }
+
+        res.json(user)
+
+    } catch (e) {
+        return res.status(500).json({
+            success: false,
+            message: e.message
+        })
+    }
+    
+}
 
