@@ -1,18 +1,55 @@
 import {AuthLayout} from "../../components/Auth/AuthLayout.jsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Input} from "../../components/Input/Input.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {ProfilPictureSelector} from "../../components/Input/ProfilPictureSelector.jsx";
+import {validateEmail} from "../../utils/helper.js";
+import axios from "axios";
+import {axiosInstance} from "../../utils/axiosInstance.js";
+import {API_PATHS} from "../../utils/apiPaths.js";
+import {UserContext} from "../../context/UserContext.jsx";
 
 export const SignUp = () => {
+    const navigate = useNavigate()
     const [fullName, setFullName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [userPic, setUserPic] = useState("")
     const [error, setError] = useState(null)
+    const {updateUser} = useContext(UserContext)
 
-    const handleSubmit = async () => {
-        return
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if(!fullName || !password || !email) {
+            setError("Tout les champs sont requis")
+        } else if(!validateEmail(email)) {
+            setError("Veuillez entrez un email valide")
+        }
+        setError("")
+
+        // Appel à l'api d'inscription
+       if(!error) {
+           try {
+               const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+                   fullname: fullName,
+                   email,
+                   password
+               })
+               const {token, user} = response.data
+
+               if(token) {
+                   localStorage.setItem("accessToken", token)
+                   updateUser(user)
+                   navigate('/dashboard')
+               }
+
+
+           } catch (e) {
+               if(e.response && e.response.data) {
+                   setError(e.response.data.message)
+               }
+           }
+       }
     }
 
     return(

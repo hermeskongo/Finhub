@@ -7,7 +7,11 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: true,
+        required: [true, "L'email est obligatoire"],
+        lowercase: true,
+        trim: true,
+        match: [/^\S+@\S+\.\S+$/, "Email invalide"],
+        unique: true
     },
     password: {
         type: String,
