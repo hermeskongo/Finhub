@@ -9,6 +9,8 @@ import {connectDB} from "./config/mongodb.js";
 import {authRoutes} from "./routes/authRoutes.js";
 import {uploadsDir} from "./config/uploadsDir.js";
 import {incomeRoutes} from "./routes/incomeRoutes.js";
+import {expenseRoutes} from "./routes/expenseRoutes.js";
+import {dashboardRoutes} from "./routes/dashboardRoutes.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,6 +34,8 @@ app
 app
     .use('/api/v1/auth', authRoutes)
     .use('/api/v1/incomes', incomeRoutes)
+    .use('/api/v1/expenses', expenseRoutes)
+    .use('/api/v1/dashboard', dashboardRoutes)
 
 
 

@@ -25,12 +25,13 @@ export const addIncome = async (req, res) => {
             source,
             icon,
             amount,
-            date: new Date() || date
-        })
+            date: date || new Date()
+    })
 
         return res.status(201).json({
             success: true,
-            message: "Income added successfully"
+            message: "Income added successfully",
+            newIncome
         })
 
     } catch (e) {
@@ -45,7 +46,7 @@ export const getAllIncomes = async (req, res) => {
     const userId = req.user.id
 
     try {
-        const incomes = await Income.find({userId})
+        const incomes = await Income.find({userId}).sort({date: -1})
         return res.json({
             success: false,
             incomes
