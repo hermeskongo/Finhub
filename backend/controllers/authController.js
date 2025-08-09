@@ -62,14 +62,20 @@ export const login = async (req, res) => {
     try {
 
         const user = await User.findOne({email})
-        const isMatch = user.compare(password)
-
-        if(!user || !isMatch) {
+        if(!user) {
             return res.status(400).json({
                 success: false,
                 message: "Informations de connexions incorrects"
             })
         }
+        const isMatch = user.compare(password)
+        if(!isMatch) {
+            return res.status(400).json({
+                success: false,
+                message: "Informations de connexions incorrects"
+            })
+        }
+
 
         return res.json({
             success: true,

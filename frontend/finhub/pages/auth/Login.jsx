@@ -1,17 +1,19 @@
 import {AuthLayout} from "../../components/Auth/AuthLayout.jsx";
 import {LuTrendingUpDown} from "react-icons/lu";
 import {Input} from "../../components/Input/Input.jsx";
-import {useState} from "react";
+import {use, useContext, useState} from "react";
 import {validateEmail} from "../../utils/helper.js";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {axiosInstance} from "../../utils/axiosInstance.js";
+import {API_PATHS} from "../../utils/apiPaths.js";
+import {UserContext} from "../../context/UserContext.jsx";
 
 export const Login = () => {
-
-
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
+    const {updateUser} = useContext(UserContext)
 
    const handleLogin = async (e) => {
         e.preventDefault()
@@ -23,6 +25,27 @@ export const Login = () => {
         } else if(password.length < 8) {
             setError("Veuillez entrez un mot de passe d'au moins 8 caractères")
         }
+
+        setError("")
+
+       // Appel à l'API
+       try {
+            const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+                email, password
+            })
+           const {token, user} = response.data
+
+           if(token) {
+               localStorage.setItem("accessToken", token)
+               updateUser(user)
+               navigate('/dashboard')
+           }
+
+       } catch (e) {
+            if(e.response && e.response.data) {
+                setError(e.response.data.message)
+            }
+       }
 
 
     }
