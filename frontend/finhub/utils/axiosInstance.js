@@ -11,7 +11,7 @@ export const axiosInstance = axios.create({
 })
 
 // Vérification de l'état d'authentification de l'utilisateur avant d'effectuer chaque requête
-axios.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use(function (config) {
     const accessToken = localStorage.getItem("accessToken")
     if(accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`
@@ -21,7 +21,7 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
 });
 
-axios.interceptors.response.use(function (response) {
+axiosInstance.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     if(error.response) {

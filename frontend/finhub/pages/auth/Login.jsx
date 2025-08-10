@@ -20,13 +20,13 @@ export const Login = () => {
 
         if(!validateEmail(email)) {
             setError("Veuillez entrez un email valide")
+            return
         } else if(!password) {
             setError("Veuillez entrez un mot de passe")
-        } else if(password.length < 8) {
-            setError("Veuillez entrez un mot de passe d'au moins 8 caractères")
+            return
         }
 
-        setError("")
+        setError(null)
 
        // Appel à l'API
        try {
