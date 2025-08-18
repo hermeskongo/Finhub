@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext, useMemo, useState} from "react";
 
 export const UserContext = createContext()
 
@@ -15,13 +15,15 @@ export const UserProvider = ({children}) => {
         setUser(null)
     }
 
+    const value = useMemo(() => ({
+        user,
+        updateUser,
+        deleteUser
+    }), [user])
+
     return (
         <UserContext.Provider
-            value={{
-                user,
-                updateUser,
-                deleteUser
-            }}
+            value={value}
         >
             {children}
         </UserContext.Provider>

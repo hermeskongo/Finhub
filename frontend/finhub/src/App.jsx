@@ -5,6 +5,10 @@ import {Expense} from "../pages/dashboard/Expense.jsx";
 import {SignUp} from "../pages/auth/SignUp.jsx";
 import {Login} from "../pages/auth/Login.jsx";
 import {UserProvider} from "../context/UserContext.jsx";
+import moment from "moment";
+import "moment/locale/fr";
+
+moment.locale('fr')
 
 function App() {
   return (
@@ -27,7 +31,6 @@ function App() {
 
 const Root = () => {
   const isAuthenticated = !!localStorage.getItem("accessToken")
-    console.log(isAuthenticated)
   return isAuthenticated ? (<Navigate to='/dashboard'/>) : (<Navigate to="/login"/>)
 }
 

@@ -2,7 +2,7 @@ import {useState} from "react";
 import {HiOutlineMenu, HiOutlineX} from "react-icons/hi";
 import {SideMenu} from "./SideMenu.jsx";
 
-export const Navbar = () => {
+export const Navbar = ({activeMenu}) => {
 
     const [showSideMenu, setShowSideMenu] = useState(false)
 
@@ -12,17 +12,19 @@ export const Navbar = () => {
 
     return (
         <>
-            <div className="flex items-center gap-5 px-2 py-4 bg-white border-b-3 border-gray-200/50 backdrop-blur-[2px] sticky top-0 z-10">
+            <div className="flex items-center gap-5 px-2 py-4 bg-white shadow-sm shadow-gray-100 backdrop-blur-[2px] sticky top-0 z-10">
 
-                {!showSideMenu ?
-                    (<HiOutlineMenu onClick={toggleShowSideMenu} className="text-2xl hover:cursor-pointer"/>)
-                    :
-                    (<HiOutlineX onClick={toggleShowSideMenu} className="text-2xl hover:cursor-pointer"/>)
-                }
+                <button onClick={toggleShowSideMenu} className=" hover:cursor-pointer min-[1024px]:hidden">
+                    {!showSideMenu ?
+                        (<HiOutlineMenu className="text-2xl"/>)
+                        :
+                        (<HiOutlineX className="text-2xl"/>)
+                    }
+                </button>
 
-                <h2 className="font-bold text-lg text-black">Finhub Dashboard</h2>
+                <h2 className="font-bold text-2xl ml-5 uppercase text-black">Finhub</h2>
             </div>
-            {showSideMenu && <div className=""><SideMenu/></div>}
+            {showSideMenu && <div className=""><SideMenu activeMenu={activeMenu}/></div>}
         </>
     )
 }
