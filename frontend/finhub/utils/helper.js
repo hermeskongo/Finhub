@@ -47,6 +47,7 @@ export function formatNumber(number) {
 /**
  *
  * @param {[]} data
+ * @param {string} type
  * @returns {{amount: *, category: *}[]}
  */
 export function normalizeData(data=[]){
@@ -63,7 +64,7 @@ export function normalizeData(data=[]){
             result.push({
                 amount: item.amount,
                 day: day,
-                date: moment(item?.date).locale('fr').format("Do MMMM YYYY"),
+                date: moment(item?.date).locale('fr').format("Do YYYY") ,
                 category: item.category,
                 nb: 1
             })
@@ -73,7 +74,12 @@ export function normalizeData(data=[]){
     return result.sort((a, b) => a.day - b.day)
 }
 
-export const MONTHS= [
-    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-]
+export function prepareIncomedata(data= []) {
+
+    return data.map((item) =>({
+        date: moment(item?.date).locale('fr').format("Do MM YYYY"),
+        category: item?.source,
+        amount: item.amount
+    }))
+
+}

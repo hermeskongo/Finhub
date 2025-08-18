@@ -29,3 +29,7 @@
 .card {
     @apply p-2 md:py-4 md:px-6 bg-white shadow-md shadow-gray-200 rounded-md
 }
+
+.add-btn {
+    @apply py-2 w-34 px-6 bg-[#EBFFFF] flex justify-between items-center border-[0.5px] border-cyan-300 rounded text-cyan-700 gap-2 hover:cursor-pointer hover:bg-[#CAF6F5]
+}

@@ -27,13 +27,15 @@ export const Income = () => {
 
     useEffect(() => {
         fetchAllIncomes()
+
+        return () => {}
     }, [])
 
 
     return(
         <DashboardLayout activeMenu="Revenus">
             <div className="grid grid-cols-1 gap-6">
-                <div>
+                <div className="p-4">
                     <IncomeOverview
                         transactions={incomeData}
                         onAddIncome={() => setOpenModal(true)}
