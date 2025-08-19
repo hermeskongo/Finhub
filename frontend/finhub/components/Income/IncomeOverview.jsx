@@ -1,13 +1,11 @@
 import {LuPlus} from "react-icons/lu";
 import {useEffect, useState} from "react";
-import {prepareIncomedata} from "../../utils/helper.js";
+import {normalizeData, prepareIncomedata} from "../../utils/helper.js";
 import {CustomBarChart} from "../Charts/CustomBarChart.jsx";
-import {Modal} from "../General/Modal.jsx";
+import Modal from "../General/Modal.jsx";
 
 export const IncomeOverview = ({transactions, onAddIncome}) => {
     const [chartData, setChartData] = useState([])
-
-    console.log(chartData)
 
     useEffect(() => {
         const result = prepareIncomedata(transactions)
@@ -32,10 +30,7 @@ export const IncomeOverview = ({transactions, onAddIncome}) => {
             </div>
         </div>
         <div className="mt-6">
-            <CustomBarChart data={chartData} show={true}/>
-            <Modal
-                title="Ajouter un revenu"
-            />
+            <CustomBarChart data={chartData} showLabel={false} show={true}/>
         </div>
     </div>)
 }

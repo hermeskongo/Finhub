@@ -7,6 +7,7 @@ import {Login} from "../pages/auth/Login.jsx";
 import {UserProvider} from "../context/UserContext.jsx";
 import moment from "moment";
 import "moment/locale/fr";
+import {Toaster} from "react-hot-toast";
 
 moment.locale('fr')
 
@@ -25,6 +26,12 @@ function App() {
                   </Routes>
               </BrowserRouter>
           </div>
+          <Toaster
+            toastOptions={{
+                className: "",
+                style: {fontSize: 13}
+            }}
+          />
       </UserProvider>
   )
 }

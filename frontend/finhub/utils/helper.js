@@ -64,20 +64,21 @@ export function normalizeData(data=[]){
             result.push({
                 amount: item.amount,
                 day: day,
-                date: moment(item?.date).locale('fr').format("Do YYYY") ,
+                uniqueDate: moment(item?.date).locale('fr').format("Do YYYY") ,
                 category: item.category,
                 nb: 1
             })
         }
     }
 
-    return result.sort((a, b) => a.day - b.day)
+    return result.sort((a, b) => b.day - a.day)
 }
 
 export function prepareIncomedata(data= []) {
 
-    return data.map((item) =>({
+    return data.map((item, index) =>({
         date: moment(item?.date).locale('fr').format("Do MM YYYY"),
+        uniqueDate: `${moment(item?.date).locale('fr').format("Do MM YYYY")}_${index}`,
         category: item?.source,
         amount: item.amount
     }))
