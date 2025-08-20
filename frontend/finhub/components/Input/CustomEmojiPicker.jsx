@@ -12,7 +12,7 @@ export const CustomEmojiPicker = ({icon, onSelect}) => {
     }
 
     return(<div>
-        <div onClick={()=> setIsOpen(true)} className="flex items-center justify-start mb-3 gap-3 cursor-pointer">
+        <div onClick={()=> setIsOpen(true)} className="flex items-center justify-start gap-3 cursor-pointer">
             {icon ?
                 <img src={icon} alt="Emoji that represent the source of the expense or the income" className="w-10 h-10"/>
                 :

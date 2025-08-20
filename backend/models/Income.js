@@ -17,7 +17,10 @@ const IncomeSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    icon: {String}
+    icon: {
+        type: String,
+        default: ""
+    }
 }, {timestamps: true})
 
 export const Income = mongoose.model("Income", IncomeSchema)

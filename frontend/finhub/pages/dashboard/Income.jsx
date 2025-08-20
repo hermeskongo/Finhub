@@ -6,10 +6,16 @@ import {API_PATHS} from "../../utils/apiPaths.js";
 import Modal from "../../components/General/Modal.jsx";
 import {AddIncomeForm} from "../../components/Income/AddIncomeForm.jsx";
 import toast from "react-hot-toast";
+import {IncomeList} from "../../components/Income/IncomeList.jsx";
+import {DeleteAlert} from "../../components/General/DeleteAlert.jsx";
 
 export const Income = () => {
     const [incomeData, setIncomeData] = useState([])
     const [openAddModal, setOpenAddModal] = useState(false)
+    const [openDeleteModal, setOpenDeleteModal] = useState({
+        show: false,
+        data: null
+    })
     const [loading, setLoading] = useState(false)
 
     //Get All incomes
@@ -28,7 +34,7 @@ export const Income = () => {
     }
 
     async function addIncome (income) {
-        const {source, amount, date} = income
+        const {source, amount, date, icon} = income
 
         if(!source.trim() && !amount && !date) {
             toast.error("Tous les champs sont requis")
@@ -55,14 +61,26 @@ export const Income = () => {
             const response = await axiosInstance.post(API_PATHS.INCOMES.ADD, {
                 source,
                 amount,
-                date
+                date,
+                icon
             })
-
+            toast.success("Transaction ajoutée avec succès")
             fetchAllIncomes()
         } catch (e) {
             console.error(`Error on adding income: ${e}`)
         } finally {
             setOpenAddModal(false)
+        }
+    }
+
+    async function deleteIncome (id){
+        try {
+            await axiosInstance.delete(API_PATHS.INCOMES.DELETE(id))
+            toast.success("Transacation supprimée avec succès")
+            setOpenDeleteModal({data: null, show: false})
+            fetchAllIncomes()
+        } catch (e) {
+            console.error(`Failed to delete this transaction: ${e}`)
         }
     }
 
@@ -90,6 +108,20 @@ export const Income = () => {
                 >
                     <AddIncomeForm onAddIncome={addIncome}/>
                 </Modal>
+                <div className="p-4">
+                    <IncomeList data={incomeData} onDelete={(id) => setOpenDeleteModal({show: true, data: id})}/>
+                </div>
+                <Modal
+                    title="Attention !"
+                    isOpen={openDeleteModal.show}
+                    onClose={() => setOpenDeleteModal({show: false, data: null})}
+                >
+                    <DeleteAlert
+                        text="Êtes vous sûr de vouloir supprimer cette transaction ?"
+                        onDelete={() => deleteIncome(openDeleteModal.data)}
+                    />
+                </Modal>
+
             </div>
         </DashboardLayout>
     )

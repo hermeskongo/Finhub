@@ -22,7 +22,7 @@ export const Navbar = ({activeMenu}) => {
                     }
                 </button>
 
-                <h2 className="font-bold text-2xl ml-5 uppercase text-black">Finhub</h2>
+                <h2 className="font-bold text-2xl ml-5 uppercase text-[#f7b600]">Finhub</h2>
             </div>
             {showSideMenu && <div className=""><SideMenu activeMenu={activeMenu}/></div>}
         </>
