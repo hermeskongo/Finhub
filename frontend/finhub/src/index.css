@@ -23,7 +23,7 @@
 }
 
 .btn-primary {
-    @apply w-full text-center text-white bg-primary rounded-xl px-4 py-3 hover:bg-cyan-200 hover:text-primary hover:cursor-pointer transition-all
+    @apply w-full text-center text-white bg-primary rounded-xl px-4 py-3 hover:bg-cyan-700 hover:cursor-pointer transition-all
 }
 
 .card {

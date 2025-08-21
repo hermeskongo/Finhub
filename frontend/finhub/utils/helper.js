@@ -47,9 +47,10 @@ export function formatNumber(number) {
 /**
  *
  * @param {[]} data
+ * @param order
  * @returns {{amount: *, category: *}[]}
  */
-export function normalizeData(data=[]){
+export function normalizeData(data=[], order="desc"){
     const result = []
 
     for(const item of data) {
@@ -63,14 +64,14 @@ export function normalizeData(data=[]){
             result.push({
                 amount: item.amount,
                 day: day,
-                uniqueDate: moment(item?.date).locale('fr').format("Do YYYY") ,
+                uniqueDate: order === "asc" ? moment(item?.date).locale('fr').format("Do MM YYYY") : moment(item?.date).locale('fr').format("Do MM YYYY"),
                 category: item.category,
                 nb: 1
             })
         }
     }
 
-    return result.sort((a, b) => b.day - a.day)
+    return order === "asc" ? result.sort((a, b) => a.day - b.day) : result.sort((a, b) => b.day - a.day)
 }
 
 export function prepareIncomedata(data= []) {

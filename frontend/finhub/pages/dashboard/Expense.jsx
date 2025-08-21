@@ -6,6 +6,8 @@ import {axiosInstance} from "../../utils/axiosInstance.js";
 import {API_PATHS} from "../../utils/apiPaths.js";
 import {normalizeData} from "../../utils/helper.js";
 import Modal from "../../components/General/Modal.jsx";
+import {AddExpenseForm} from "../../components/Expense/AddExpenseForm.jsx";
+import toast from "react-hot-toast";
 
 export const Expense = () => {
     useAuth()
@@ -20,7 +22,7 @@ export const Expense = () => {
             const response = await axiosInstance.get(API_PATHS.EXPENSES.ALL)
 
             if(response.data) {
-                const data = normalizeData(response.data.expenses)
+                const data = normalizeData(response.data.expenses, "asc")
                 setExpenseData(data)
             }
 
@@ -30,6 +32,44 @@ export const Expense = () => {
             setIsLoading(false)
         }
     }
+
+    async function addExpense (expense){
+
+        const {category, amount, date, icon} = expense
+
+        if(!category.trim() && !amount && !date) {
+            toast.error("Tous les champs sont requis")
+            setOpenAddModal(false)
+            return
+        }
+        if(!category.trim()) {
+            toast.error("La catégorie de la dépense est requise")
+            setOpenAddModal(false)
+            return
+        }
+        if(!amount || isNaN(amount) || Number(amount) <=0) {
+            toast.error("Entrez un montant valide (supérieur à 0)")
+            setOpenAddModal(false)
+            return
+        }
+        if(!date) {
+            toast.error("la date est requise")
+            setOpenAddModal(false)
+            return
+        }
+
+
+        try {
+            const response = await axiosInstance.post(API_PATHS.EXPENSES.ADD, expense)
+            console.log(response)
+            toast.success("Transaction ajoutée avec succès")
+            setOpenAddModal(false)
+            fetchExpenses()
+        } catch (e) {
+            console.error(`Error while adding expense's transaction: ${e}`)
+        }
+    }
+
 
     useEffect(() => {
         fetchExpenses()
@@ -43,12 +83,15 @@ export const Expense = () => {
                     addExpense={() => setOpenAddModal(true)}
                 />
             </div>
+
             <Modal
                 isOpen={openAddModal}
                 title="Ajouter une transaction"
                 onClose={() => setOpenAddModal(false)}
             >
-
+                <AddExpenseForm
+                    addExpense={addExpense}
+                />
             </Modal>
         </DashboardLayout>
     )
