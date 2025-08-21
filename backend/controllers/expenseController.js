@@ -73,6 +73,7 @@ export const deleteExpense = async (req, res) => {
         })
 
     } catch (e) {
+        console.log(e)
         return res.status(500).json({
             success: false,
             message: e.message
@@ -83,7 +84,7 @@ export const deleteExpense = async (req, res) => {
 export const downloadExcelExpenses = async (req, res) => {
     try {
 
-        const userId = '68937739f4cf6565d9cde3ae'
+        const userId = req.user.id
         const expenses = await Expense.find({userId})
 
         const data = expenses.map((expense) => ({

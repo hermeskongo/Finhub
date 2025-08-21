@@ -17,7 +17,10 @@ const ExpenseSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    icon: {String}
+    icon: {
+        type: String,
+        default: ""
+    }
 }, {timestamps: true})
 
 export const Expense = mongoose.model("Expense", ExpenseSchema)

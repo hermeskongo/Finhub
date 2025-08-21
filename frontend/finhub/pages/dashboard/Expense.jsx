@@ -8,6 +8,8 @@ import {normalizeData} from "../../utils/helper.js";
 import Modal from "../../components/General/Modal.jsx";
 import {AddExpenseForm} from "../../components/Expense/AddExpenseForm.jsx";
 import toast from "react-hot-toast";
+import {ExpenseList} from "../../components/Expense/ExpenseList.jsx";
+import {DeleteAlert} from "../../components/General/DeleteAlert.jsx";
 
 export const Expense = () => {
     useAuth()
@@ -15,6 +17,10 @@ export const Expense = () => {
     const [expenseData, setExpenseData] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [openAddModal, setOpenAddModal] = useState(false)
+    const [openDeleteModal, setOpenDeleteModal] = useState({
+        show: false,
+        id: null
+    })
 
     async function fetchExpenses() {
         setIsLoading(true)
@@ -22,8 +28,7 @@ export const Expense = () => {
             const response = await axiosInstance.get(API_PATHS.EXPENSES.ALL)
 
             if(response.data) {
-                const data = normalizeData(response.data.expenses, "asc")
-                setExpenseData(data)
+                setExpenseData(response.data.expenses)
             }
 
         } catch (e) {
@@ -60,8 +65,8 @@ export const Expense = () => {
 
 
         try {
-            const response = await axiosInstance.post(API_PATHS.EXPENSES.ADD, expense)
-            console.log(response)
+            await axiosInstance.post(API_PATHS.EXPENSES.ADD, expense)
+
             toast.success("Transaction ajoutée avec succès")
             setOpenAddModal(false)
             fetchExpenses()
@@ -70,6 +75,17 @@ export const Expense = () => {
         }
     }
 
+    async function deleteExpense (id) {
+        try {
+
+            console.log(await axiosInstance.delete(API_PATHS.EXPENSES.DELETE(id)))
+            toast.success("Transaction supprimée avec succès")
+            setOpenDeleteModal({show: false, id: null})
+            fetchExpenses()
+        } catch (e) {
+            console.log(`Error while deleting expense: ${e}`)
+        }
+    }
 
     useEffect(() => {
         fetchExpenses()
@@ -77,10 +93,14 @@ export const Expense = () => {
 
     return(
         <DashboardLayout activeMenu="dépenses">
-            <div className="p-4">
+            <div className="p-4 grid gap-3">
                 <ExpenseOverview
                     data={expenseData || []}
                     addExpense={() => setOpenAddModal(true)}
+                />
+                <ExpenseList
+                    expenses={expenseData || []}
+                    onDelete={(id) => setOpenDeleteModal({show: true, id: id})}
                 />
             </div>
 
@@ -91,6 +111,16 @@ export const Expense = () => {
             >
                 <AddExpenseForm
                     addExpense={addExpense}
+                />
+            </Modal>
+            <Modal
+                isOpen={openDeleteModal.show}
+                title="Attention !"
+                onClose={() => setOpenDeleteModal({show: false, id: null})}
+            >
+                <DeleteAlert
+                    text="Êtes vous sûr de vouloir supprimer transaction ?"
+                    onDelete={() => deleteExpense(openDeleteModal.id)}
                 />
             </Modal>
         </DashboardLayout>

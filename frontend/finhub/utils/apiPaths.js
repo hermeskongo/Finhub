@@ -23,7 +23,7 @@ export const API_PATHS = {
     EXPENSES: {
         ADD: `${expenses_base}/add`,
         ALL: `${expenses_base}/all`,
-        DELETE: (id) => `${incomes_base}/delete/${id}`,
+        DELETE: (id) => `${expenses_base}/delete/${id}`,
         DOWNLOAD: `${expenses_base}/download`
     }
 
