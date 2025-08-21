@@ -30,18 +30,18 @@ export const CustomBarChart = ({data, showLabel=true, show=true}) => {
                     <XAxis
                         className="mb-10"
                         dataKey="uniqueDate"
-                        tick={{ fontSize: 12, fill: '#000'}}
+                        tick={{ fontSize: 14, fill: '#000'}}
                         tickFormatter={(value) => {
                             return data.find( item => item.uniqueDate === value)?.date || value
                         }}
                     />
-                    <YAxis tick={{ fontSize: 12, fill: '#6B7280' }} stroke='none'/>
+                    <YAxis tick={{ fontSize: 14, fill: '#6B7280' }} stroke='none'/>
                     <Tooltip content={<CustomTooltip show={show}/>} />
                     <Bar dataKey="amount" radius={[10, 10, 0, 0]}>
                         {data.map((entry, index) => (
                             <Cell
                                 key={`cell-${index}`}
-                                fill={index % 2 === 0 ? '#67c9cb' : '#2c56a5'}
+                                fill={index % 2 === 0 ? '#67c9cb' : '#5fbcfd'}
                             />
                         ))}
                     </Bar>

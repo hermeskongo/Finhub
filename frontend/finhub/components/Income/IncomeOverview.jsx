@@ -1,8 +1,7 @@
 import {LuPlus} from "react-icons/lu";
 import {useEffect, useState} from "react";
-import {normalizeData, prepareIncomedata} from "../../utils/helper.js";
+import {prepareIncomedata} from "../../utils/helper.js";
 import {CustomBarChart} from "../Charts/CustomBarChart.jsx";
-import Modal from "../General/Modal.jsx";
 
 export const IncomeOverview = ({transactions, onAddIncome}) => {
     const [chartData, setChartData] = useState([])

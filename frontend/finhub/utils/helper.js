@@ -47,7 +47,6 @@ export function formatNumber(number) {
 /**
  *
  * @param {[]} data
- * @param {string} type
  * @returns {{amount: *, category: *}[]}
  */
 export function normalizeData(data=[]){
