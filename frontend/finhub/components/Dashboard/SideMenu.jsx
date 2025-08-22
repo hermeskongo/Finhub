@@ -1,28 +1,29 @@
 import {SIDEMENU_DATA} from "../../utils/data.js";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {UserContext} from "../../context/UserContext.jsx";
 import {NoProfile} from "./NoProfile.jsx";
 import {NavLink, useNavigate} from "react-router-dom";
+import Modal from "../General/Modal.jsx";
+import {Alert} from "../General/Alert.jsx";
 
 export const SideMenu = ({activeMenu}) => {
 
     const {user, deleteUser} = useContext(UserContext)
     const navigate = useNavigate()
+    const [showLogoutModal, setShowLogoutModal] = useState(false)
 
     function handleClick (route) {
         if(route === 'logout') {
-            handleLogout()
+            setShowLogoutModal(true)
             return
         }
         navigate(route)
     }
 
     function handleLogout () {
-        if(confirm("Êtes-vous sûr de vouloir vous déconnectez ?")) {
-            localStorage.setItem("accessToken", "")
-            deleteUser()
-            navigate('/login')
-        }
+        localStorage.setItem("accessToken", "")
+        deleteUser()
+        navigate('/login')
     }
 
 
@@ -46,5 +47,16 @@ export const SideMenu = ({activeMenu}) => {
                 {item.label}
             </button>
         ))}
-    </div>
+        <Modal
+            isOpen={showLogoutModal}
+            title="Attention !"
+            onClose={() => setShowLogoutModal(false)}
+        >
+            <Alert
+                text="Êtes-vous sûr de vouloir vous déconnectez ?"
+                onDelete={handleLogout}
+                btnText="Oui"
+            />
+        </Modal>
+      </div>
 }

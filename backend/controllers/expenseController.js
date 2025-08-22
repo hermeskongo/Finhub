@@ -85,6 +85,7 @@ export const downloadExcelExpenses = async (req, res) => {
     try {
 
         const userId = req.user.id
+
         const expenses = await Expense.find({userId})
 
         const data = expenses.map((expense) => ({

@@ -11,5 +11,5 @@ export const expenseRoutes = express.Router()
 
 expenseRoutes.post('/add', protect, addExpense)
 expenseRoutes.get('/all', protect, getAllExpenses)
-expenseRoutes.get('/download',  downloadExcelExpenses)
+expenseRoutes.get('/download', protect, downloadExcelExpenses)
 expenseRoutes.delete('/delete/:id', protect, deleteExpense)

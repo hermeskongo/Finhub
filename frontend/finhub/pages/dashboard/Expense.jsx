@@ -4,12 +4,11 @@ import {ExpenseOverview} from "../../components/Expense/ExpenseOverview.jsx";
 import {useEffect, useState} from "react";
 import {axiosInstance} from "../../utils/axiosInstance.js";
 import {API_PATHS} from "../../utils/apiPaths.js";
-import {normalizeData} from "../../utils/helper.js";
 import Modal from "../../components/General/Modal.jsx";
 import {AddExpenseForm} from "../../components/Expense/AddExpenseForm.jsx";
 import toast from "react-hot-toast";
 import {ExpenseList} from "../../components/Expense/ExpenseList.jsx";
-import {DeleteAlert} from "../../components/General/DeleteAlert.jsx";
+import {Alert} from "../../components/General/Alert.jsx";
 
 export const Expense = () => {
     useAuth()
@@ -87,6 +86,27 @@ export const Expense = () => {
         }
     }
 
+    async function downloadExpenseSheet (){
+        try {
+            const response = await axiosInstance.get(API_PATHS.EXPENSES.DOWNLOAD, {
+                responseType: "blob"
+            })
+
+
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement('a')
+            link.href = url
+            link.download = "finhub-expenses_details.xlsx"
+            document.body.append(link)
+            link.click()
+            link.parentNode.removeChild(link)
+            window.URL.revokeObjectURL(url)
+
+        } catch (e) {
+            console.error(`Error while downloading expense sheet: ${e}`)
+        }
+    }
+
     useEffect(() => {
         fetchExpenses()
     }, [])
@@ -101,6 +121,7 @@ export const Expense = () => {
                 <ExpenseList
                     expenses={expenseData || []}
                     onDelete={(id) => setOpenDeleteModal({show: true, id: id})}
+                    onDownload={() => downloadExpenseSheet()}
                 />
             </div>
 
@@ -118,7 +139,7 @@ export const Expense = () => {
                 title="Attention !"
                 onClose={() => setOpenDeleteModal({show: false, id: null})}
             >
-                <DeleteAlert
+                <Alert
                     text="Êtes vous sûr de vouloir supprimer transaction ?"
                     onDelete={() => deleteExpense(openDeleteModal.id)}
                 />

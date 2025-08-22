@@ -7,7 +7,7 @@ import Modal from "../../components/General/Modal.jsx";
 import {AddIncomeForm} from "../../components/Income/AddIncomeForm.jsx";
 import toast from "react-hot-toast";
 import {IncomeList} from "../../components/Income/IncomeList.jsx";
-import {DeleteAlert} from "../../components/General/DeleteAlert.jsx";
+import {Alert} from "../../components/General/Alert.jsx";
 
 export const Income = () => {
     const [incomeData, setIncomeData] = useState([])
@@ -84,6 +84,25 @@ export const Income = () => {
         }
     }
 
+    async function downloadIncomeSheet (){
+        try {
+            const response = await axiosInstance.get(API_PATHS.INCOMES.DOWNLOAD, {
+                responseType: "blob"
+            })
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+
+            const link = document.createElement('a')
+            link.href = url
+            link.download = "finhub-incomes_details.xlsx"
+            document.body.append(link)
+            link.click()
+            link.parentNode.removeChild(link)
+            window.URL.revokeObjectURL(url)
+
+        } catch (e) {
+            console.error(`Error while downloading expense sheet: ${e}`)
+        }
+    }
 
     useEffect(() => {
         fetchAllIncomes()
@@ -109,14 +128,18 @@ export const Income = () => {
                     <AddIncomeForm onAddIncome={addIncome}/>
                 </Modal>
                 <div className="p-4">
-                    <IncomeList data={incomeData} onDelete={(id) => setOpenDeleteModal({show: true, data: id})}/>
+                    <IncomeList
+                        data={incomeData}
+                        onDelete={(id) => setOpenDeleteModal({show: true, data: id})}
+                        onDownload={() => downloadIncomeSheet()}
+                    />
                 </div>
                 <Modal
                     title="Attention !"
                     isOpen={openDeleteModal.show}
                     onClose={() => setOpenDeleteModal({show: false, data: null})}
                 >
-                    <DeleteAlert
+                    <Alert
                         text="Êtes vous sûr de vouloir supprimer cette transaction ?"
                         onDelete={() => deleteIncome(openDeleteModal.data)}
                     />
