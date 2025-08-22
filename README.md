@@ -33,10 +33,10 @@ Elle permet de suivre ses revenus, ses dépenses et son solde en temps réel, to
 ## 📷 Aperçu de l'application
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-  <img src="../../Screenshots/img.png" alt="Inscription" width="100%" style="border-radius: 5px"/>
-  <img src="../../Screenshots/screen (2).png" alt="Dashboard" width="100%" style="border-radius: 5px"/>
-  <img src="../../Screenshots/screen (3).png" alt="Revenus" width="100%" style="border-radius: 5px" />
-  <img src="../../Screenshots/screen (4).png" alt="Dépenses" width="100%" style="border-radius: 5px" />
+  <img src="Screenshots/img.png" alt="Inscription" width="100%" style="border-radius: 5px"/>
+  <img src="Screenshots/screen (2).png" alt="Dashboard" width="100%" style="border-radius: 5px"/>
+  <img src="Screenshots/screen (3).png" alt="Revenus" width="100%" style="border-radius: 5px" />
+  <img src="Screenshots/screen (4).png" alt="Dépenses" width="100%" style="border-radius: 5px" />
 </div>
 
 
