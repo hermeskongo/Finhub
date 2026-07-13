@@ -1,7 +1,7 @@
 import {CustomPie} from "./CustomPie.jsx";
 import {useEffect, useState} from "react";
 
-const COLORS = ["#67c9cb", "#FA2C37", "#FF6900"];
+const COLORS = ["#b8f36b", "#89b4ff", "#f4b860"];
 export const Last60DaysIncome = ({data, totalAmount}) => {
     const [chartData, setChartData] = useState([])
     const prepareChartData = () => {

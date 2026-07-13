@@ -17,7 +17,7 @@ export const CustomPie = ({data, label, colors, totalAmount=0, showLegend=true})
                     dy="-25"
                     outerRadius={130}
                     innerRadius={100}
-                    fill="#8884d8"
+                    fill="#b8f36b"
                     textAnchor={"Middle"}
                     label={false} // Pas de labels
                     labelLine={false}
@@ -33,7 +33,7 @@ export const CustomPie = ({data, label, colors, totalAmount=0, showLegend=true})
                     y='50%'
                     dy="-25"
                     textAnchor="middle"
-                    fill="#666"
+                    fill="#9dad9f"
                     fontSize="18px"
                 >
                     {label}
@@ -43,7 +43,7 @@ export const CustomPie = ({data, label, colors, totalAmount=0, showLegend=true})
                     y="50%"
                     dy="8"
                     textAnchor="middle"
-                    fill="#333"
+                    fill="#eef4ef"
                     fontSize={24}
                     fontWeight="semid-bold"
                 >

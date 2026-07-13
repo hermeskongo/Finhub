@@ -3,12 +3,14 @@ import {UserContext} from "../context/UserContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {axiosInstance} from "../utils/axiosInstance.js";
 import {API_PATHS} from "../utils/apiPaths.js";
+import {isDemoMode} from "../utils/demoData.js";
 
 export const useAuth = () => {
     const {user, updateUser, deleteUser} = useContext(UserContext)
     const navigate = useNavigate()
 
     useEffect(() => {
+        if (isDemoMode()) return
         if (user) return
 
 

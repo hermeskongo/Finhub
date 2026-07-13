@@ -17,7 +17,7 @@ export const IncomeOverview = ({transactions, onAddIncome}) => {
             <div className="flex flex-col md:flex-row md:justify-between md:gap-8 md:items-center">
                 <div>
                     <h5 className="text-2xl font-bold mb-3">Aperçu des revenus</h5>
-                    <p className="text-gray-500">Suivez vos revenus au fil du temps et analysez vos tendances de revenus.</p>
+                    <p className="text-[#718076]">Suivez vos revenus au fil du temps et analysez vos tendances.</p>
                 </div>
                 <button
                     className="add-btn mt-5 md:mt-0"

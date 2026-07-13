@@ -1,9 +1,9 @@
 export const Alert = ({text, onDelete, btnText="Supprimer"}) => {
 
-    return(<div className="flex justify-between gap-3 items-center">
-        <p className="text-md text-gray-800">{text}</p>
+    return(<div className="flex flex-col items-stretch justify-between gap-5 sm:flex-row sm:items-center">
+        <p className="text-md text-[#c4d0c6]">{text}</p>
         <button
-            className="bg-red-400 text-gray-50 rounded-md py-3 px-5 hover:cursor-pointer hover:bg-red-500 transition"
+            className="rounded-xl bg-[#6d3034] px-5 py-3 font-medium text-[#ffd9d9] transition hover:cursor-pointer hover:bg-[#873b40]"
             onClick={onDelete}
         >
             {btnText}

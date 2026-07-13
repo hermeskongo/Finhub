@@ -8,15 +8,15 @@ export const DashboardLayout = ({children, activeMenu="Dashboard"}) => {
     useAuth()
     const {user} = useContext(UserContext)
     return(
-        <div className="">
+        <div className="min-h-screen bg-fin-bg text-[#eef4ef]">
             <Navbar activeMenu={activeMenu}/>
 
             {user && (
-                <div className="flex">
-                    <div className="max-[1024px]:hidden">
+                <div className="flex min-h-[calc(100vh-73px)]">
+                    <div className="hidden lg:block">
                         <SideMenu activeMenu={activeMenu}></SideMenu>
                     </div>
-                    <div className="grow">
+                    <div className="fin-dashboard min-w-0 grow">
                         {children}
                     </div>
                 </div>

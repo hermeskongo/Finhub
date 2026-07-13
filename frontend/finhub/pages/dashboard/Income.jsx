@@ -8,6 +8,7 @@ import {AddIncomeForm} from "../../components/Income/AddIncomeForm.jsx";
 import toast from "react-hot-toast";
 import {IncomeList} from "../../components/Income/IncomeList.jsx";
 import {Alert} from "../../components/General/Alert.jsx";
+import {DEMO_INCOMES, isDemoMode} from "../../utils/demoData.js";
 
 export const Income = () => {
     const [incomeData, setIncomeData] = useState([])
@@ -21,6 +22,11 @@ export const Income = () => {
     //Get All incomes
     async function fetchAllIncomes() {
         setLoading(true)
+        if (isDemoMode()) {
+            setIncomeData(DEMO_INCOMES)
+            setLoading(false)
+            return
+        }
         try {
             const {data} = await axiosInstance.get(API_PATHS.INCOMES.ALL)
             if(data.incomes) {
@@ -58,6 +64,12 @@ export const Income = () => {
         }
 
         try {
+            if (isDemoMode()) {
+                setIncomeData((current) => [{...income, _id: `income-${Date.now()}`}, ...current])
+                toast.success("Revenu ajouté à la démo")
+                setOpenAddModal(false)
+                return
+            }
             const response = await axiosInstance.post(API_PATHS.INCOMES.ADD, {
                 source,
                 amount,
@@ -75,6 +87,12 @@ export const Income = () => {
 
     async function deleteIncome (id){
         try {
+            if (isDemoMode()) {
+                setIncomeData((current) => current.filter((income) => income._id !== id))
+                toast.success("Revenu supprimé de la démo")
+                setOpenDeleteModal({data: null, show: false})
+                return
+            }
             await axiosInstance.delete(API_PATHS.INCOMES.DELETE(id))
             toast.success("Transacation supprimée avec succès")
             setOpenDeleteModal({data: null, show: false})
@@ -86,6 +104,10 @@ export const Income = () => {
 
     async function downloadIncomeSheet (){
         try {
+            if (isDemoMode()) {
+                toast.success("Export disponible avec une connexion active")
+                return
+            }
             const response = await axiosInstance.get(API_PATHS.INCOMES.DOWNLOAD, {
                 responseType: "blob"
             })
@@ -114,7 +136,7 @@ export const Income = () => {
     return(
         <DashboardLayout activeMenu="Revenus">
             <div className="grid grid-cols-1 gap-6">
-                <div className="p-4">
+                <div className="p-2 sm:p-4">
                     <IncomeOverview
                         transactions={incomeData}
                         onAddIncome={() => setOpenAddModal(true)}
@@ -127,7 +149,7 @@ export const Income = () => {
                 >
                     <AddIncomeForm onAddIncome={addIncome}/>
                 </Modal>
-                <div className="p-4">
+                <div className="p-2 sm:p-4">
                     <IncomeList
                         data={incomeData}
                         onDelete={(id) => setOpenDeleteModal({show: true, data: id})}

@@ -9,6 +9,7 @@ import {AddExpenseForm} from "../../components/Expense/AddExpenseForm.jsx";
 import toast from "react-hot-toast";
 import {ExpenseList} from "../../components/Expense/ExpenseList.jsx";
 import {Alert} from "../../components/General/Alert.jsx";
+import {DEMO_EXPENSES, isDemoMode} from "../../utils/demoData.js";
 
 export const Expense = () => {
     useAuth()
@@ -23,6 +24,11 @@ export const Expense = () => {
 
     async function fetchExpenses() {
         setIsLoading(true)
+        if (isDemoMode()) {
+            setExpenseData(DEMO_EXPENSES)
+            setIsLoading(false)
+            return
+        }
         try {
             const response = await axiosInstance.get(API_PATHS.EXPENSES.ALL)
 
@@ -64,6 +70,12 @@ export const Expense = () => {
 
 
         try {
+            if (isDemoMode()) {
+                setExpenseData((current) => [{...expense, _id: `expense-${Date.now()}`}, ...(current || [])])
+                toast.success("Dépense ajoutée à la démo")
+                setOpenAddModal(false)
+                return
+            }
             await axiosInstance.post(API_PATHS.EXPENSES.ADD, expense)
 
             toast.success("Transaction ajoutée avec succès")
@@ -76,6 +88,12 @@ export const Expense = () => {
 
     async function deleteExpense (id) {
         try {
+            if (isDemoMode()) {
+                setExpenseData((current) => (current || []).filter((expense) => expense._id !== id))
+                toast.success("Dépense supprimée de la démo")
+                setOpenDeleteModal({show: false, id: null})
+                return
+            }
 
             console.log(await axiosInstance.delete(API_PATHS.EXPENSES.DELETE(id)))
             toast.success("Transaction supprimée avec succès")
@@ -88,6 +106,10 @@ export const Expense = () => {
 
     async function downloadExpenseSheet (){
         try {
+            if (isDemoMode()) {
+                toast.success("Export disponible avec une connexion active")
+                return
+            }
             const response = await axiosInstance.get(API_PATHS.EXPENSES.DOWNLOAD, {
                 responseType: "blob"
             })
@@ -113,7 +135,7 @@ export const Expense = () => {
 
     return(
         <DashboardLayout activeMenu="dépenses">
-            <div className="p-4 grid gap-3">
+            <div className="grid gap-3 p-2 sm:p-4">
                 <ExpenseOverview
                     data={expenseData || []}
                     addExpense={() => setOpenAddModal(true)}

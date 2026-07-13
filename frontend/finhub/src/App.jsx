@@ -1,4 +1,4 @@
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes, useLocation} from "react-router-dom";
 import {Home} from "../pages/dashboard/Home.jsx";
 import {Income} from "../pages/dashboard/Income.jsx";
 import {Expense} from "../pages/dashboard/Expense.jsx";
@@ -8,10 +8,18 @@ import {UserProvider} from "../context/UserContext.jsx";
 import moment from "moment";
 import "moment/locale/fr";
 import {Toaster} from "react-hot-toast";
+import Landing from "../pages/Landing.jsx";
 
 moment.locale('fr')
 
 function App() {
+  const demoSurface = ["/dashboard", "/incomes", "/expenses"].includes(window.location.pathname)
+  const demoRequested = new URLSearchParams(window.location.search).get("demo") === "1"
+
+  if (demoRequested || (demoSurface && !localStorage.getItem("accessToken"))) {
+    localStorage.setItem("accessToken", "demo-token")
+  }
+
   return (
       <UserProvider>
           <div>
@@ -37,9 +45,14 @@ function App() {
 }
 
 const Root = () => {
-  const isAuthenticated = !!localStorage.getItem("accessToken")
-  return isAuthenticated ? (<Navigate to='/dashboard'/>) : (<Navigate to="/login"/>)
+  const location = useLocation()
+  const demoRequested = new URLSearchParams(location.search).get("demo") === "1"
+
+  if (demoRequested) {
+    localStorage.setItem("accessToken", "demo-token")
+    return <Navigate replace to='/dashboard'/>
+  }
+  return <Landing/>
 }
 
 export default App
-

@@ -14,21 +14,22 @@ export const CustomEmojiPicker = ({icon, onSelect}) => {
     return(<div>
         <div onClick={()=> setIsOpen(true)} className="flex items-center justify-start gap-3 cursor-pointer">
             {icon ?
-                <img src={icon} alt="Emoji that represent the source of the expense or the income" className="w-10 h-10"/>
+                <img src={icon} alt="Emoji représentant la transaction" className="h-10 w-10 rounded-xl"/>
                 :
-                <LuImage className="bg-cyan-200 text-lg text-primary w-10 h-10 rounded-full p-2 border-[1px] border-primary "/>
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#40533f] bg-[#1b241e] text-primary"><LuImage className="h-5 w-5"/></span>
             }
-            <p className="text-sm">{!icon ? "Choisir un émoji représentatif" : "Changer d'émoji"}</p>
+            <p className="text-sm text-[#c4d0c6]">{!icon ? "Choisir un émoji représentatif" : "Changer d'émoji"}</p>
         </div>
 
         {isOpen && <div className="absolute">
             <div
                 onClick={() => setIsOpen(false)}
             >
-                <LuX className="text-gray-500 text-lg"/>
+                <LuX className="text-[#829085] text-lg"/>
             </div>
             <EmojiPicker
                 open={isOpen}
+                theme="dark"
                 onEmojiClick={({imageUrl}) => handleEmojiClick(imageUrl)}
             />
         </div>}

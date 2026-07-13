@@ -1,0 +1,93 @@
+.landing-page {
+    --ink: #111713;
+    --paper: #edf0e8;
+    --muted: #68766c;
+    --blue: #b8f36b;
+    --orange: #e97863;
+    background: var(--paper);
+}
+
+.landing-brand-mark { box-shadow: 0 0 0 5px rgba(184,243,107,.18); }
+.landing-brand-mark:before, .landing-brand-mark:after { border-color: var(--ink); }
+.landing-brand-mark span { background: var(--ink); }
+.landing-primary { color: #1b2b20 !important; }
+.landing-primary:hover, .landing-final-cta:hover { background: #d1ff94; }
+.landing-board { background: #0f1511; box-shadow: 18px 25px 0 rgba(184,243,107,.14), 30px 45px 80px rgba(20,24,22,.22); }
+.landing-mini-brand span { color: #a8d878; }
+.landing-chart-line { stroke: #a8d878; }
+.landing-chart circle { fill: #e97863; }
+.landing-ticker { color: var(--ink); }
+.landing-feature-blue { color: #1b2b20; }
+.landing-feature-blue a { color: #1b2b20; }
+.landing-feature-blue .landing-feature-bars i { background: var(--ink); }
+.landing-feature-blue .landing-feature-bars i:last-child { background: #e97863; }
+.landing-art-sticker { background: #d1ff94; }
+.landing-final { background: #0f1511; }
+.landing-final-cta { background: #b8f36b; color: var(--ink) !important; }
+.landing-footer { background: #0f1511; }
+
+/* Finhub's dark product world, with the landing's editorial rhythm intact. */
+.landing-page {
+    --ink: #e1ebe3;
+    --paper: #0b0d0c;
+    --muted: #8b998f;
+    --blue: #a8d878;
+    background: #0b0d0c;
+    color: var(--ink);
+}
+.landing-nav { border-bottom: 1px solid rgba(54,67,57,.55); }
+.landing-nav a, .landing-secondary { color: #c4d0c6; }
+.landing-nav-cta { border-color: #a8d878; color: #a8d878 !important; }
+.landing-hero-lede, .landing-proof, .landing-approach-content>div { color: var(--muted); }
+.landing-play { border-color: #40533f; }
+.landing-board { background: #0f1511; color: #e1ebe3; }
+.landing-art-note-bottom { background: #171d19; color: #c4d0c6; }
+.landing-ticker { color: #223126; }
+.landing-ticker b { color: #314b36; }
+.landing-approach-content>div, .landing-system { border-color: #26302a; }
+.landing-section-index span { color: #536156; }
+.landing-feature-paper { background: #151b17; color: #e1ebe3; }
+.landing-ledger-card { background: #121614; border-color: #26302a; box-shadow: 15px 15px 0 #1b241e; }
+.landing-ledger-card-head, .landing-ledger-row { border-color: #26302a; }
+.landing-ledger-row small { color: #718076; }
+.landing-footer { border-color: #26302a; }
+.landing-final-cta { background: #a8d878; color: #1b2b20 !important; }
+
+@keyframes landingReveal {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes landingBoardFloat {
+    0%, 100% { transform: rotate(2.4deg) translateY(0); }
+    50% { transform: rotate(2.4deg) translateY(-10px); }
+}
+@keyframes landingNoteFloat {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -8px; }
+}
+@keyframes landingChartDraw { to { stroke-dashoffset: 0; } }
+@keyframes landingPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(184,243,107,.28); } 50% { box-shadow: 0 0 0 12px rgba(184,243,107,0); } }
+@keyframes landingOrbit { to { transform: translateX(-50%) rotate(360deg); } }
+
+@media (prefers-reduced-motion: no-preference) {
+    .landing-hero-copy > * { animation: landingReveal .7s cubic-bezier(.2,.8,.2,1) both; }
+    .landing-hero-copy > :nth-child(2) { animation-delay: .1s; }
+    .landing-hero-copy > :nth-child(3) { animation-delay: .18s; }
+    .landing-hero-copy > :nth-child(4) { animation-delay: .26s; }
+    .landing-hero-copy > :nth-child(5) { animation-delay: .34s; }
+    .landing-board { animation: landingBoardFloat 6s ease-in-out infinite; }
+    .landing-art-note-top { animation: landingNoteFloat 4.5s ease-in-out infinite; }
+    .landing-art-note-bottom { animation: landingNoteFloat 5.5s ease-in-out .4s infinite reverse; }
+    .landing-art-sticker { animation: landingPulse 3s ease-in-out infinite; }
+    .landing-chart-line { stroke-dasharray: 900; stroke-dashoffset: 900; animation: landingChartDraw 2.2s .5s ease-out forwards; }
+    .landing-chart circle { animation: landingPulse 2.5s 1.3s ease-in-out infinite; }
+    .landing-feature { animation: landingReveal .7s cubic-bezier(.2,.8,.2,1) both; }
+    .landing-feature:nth-child(2) { animation-delay: .12s; }
+    .landing-feature:nth-child(3) { animation-delay: .24s; }
+    .landing-final-orbit { animation: landingOrbit 35s linear infinite; }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: no-preference) {
+    .landing-board { animation-name: landingBoardFloat; }
+    .landing-board { animation-duration: 6s; }
+}

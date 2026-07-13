@@ -2,7 +2,7 @@ import {CustomPie} from "./CustomPie.jsx";
 
 export const FinanceOverview = ({balance, income, expense}) => {
 
-    const COLORS = ["#67c9cb", "#FA2C37", "#FF6900"];
+    const COLORS = ["#b8f36b", "#ff7f7f", "#f4b860"];
 
 
     const balanceData = [

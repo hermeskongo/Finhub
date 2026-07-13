@@ -19,10 +19,10 @@ export const Input = ({value, placeholder, label, id, type, onChange}) => {
     }
     return(
         <div className="flex flex-col">
-            <label htmlFor={id} className="text-slate-600">{label}</label>
+            <label htmlFor={id} className="text-sm font-medium text-[#aab8ad]">{label}</label>
             <div className="input-box">
                 <input
-                    className="bg-transparent outline-none w-full"
+                    className="w-full bg-transparent text-[#eef4ef] outline-none placeholder:text-[#657267]"
                     type={ type==='password' ? showPassword ? 'text' : 'password' : type}
                     id={id}
                     value={value}

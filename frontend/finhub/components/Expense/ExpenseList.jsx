@@ -8,16 +8,16 @@ export function ExpenseList({expenses, onDelete, onDownload}) {
     return(
     <div className="card">
         <div className="flex items-center justify-between gap-3">
-            <h3 className="text-xl">Historique de vos revenus</h3>
+            <h3 className="text-xl font-semibold tracking-tight">Historique de vos dépenses</h3>
             <button
-                className="py-3 px-4 bg-gray-200 rounded-md flex items-center justify-center gap-3 hover:cursor-pointer"
+                className="rounded-xl border border-[#334137] bg-[#182019] px-4 py-3 text-[#c4d0c6] transition hover:border-[#b8f36b] hover:text-[#b8f36b] hover:cursor-pointer flex items-center justify-center gap-3"
                 onClick={onDownload}
             >
                 <LuDownload/>
                 <p>Télécharger</p>
             </button>
         </div>
-        <div className="p-6 mt-4 grid md:grid-cols-2 md:gap-2">
+        <div className="mt-4 grid grid-cols-1 gap-1 p-2 sm:p-4 md:grid-cols-2 md:gap-2">
             {expenses.map((expense, index) => {
                 return <TransactionCard
                     key={index}

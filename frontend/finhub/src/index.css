@@ -1,35 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
 @theme {
-    --font-display: "Poppins", "sans-serif";
-    --breakpoint-3xl: 1920px;
-    --color-primary: #67c9cb;
+    --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --color-primary: #b8f36b;
+    --color-fin-bg: #0b0d0c;
+    --color-fin-panel: #121614;
 }
 
 @layer base {
-    html {
-        font-family: var(--font-display);
-    }
-
-    body {
-        background-color: #fcfbfc;
-        overflow-x: hidden;
-    }
+    :root { font-family: var(--font-display); color: #eef4ef; background: #0b0d0c; }
+    html, body, #root { min-height: 100%; }
+    body { margin: 0; overflow-x: hidden; background: radial-gradient(circle at 72% 0%, rgba(184,243,107,.08), transparent 26rem), #0b0d0c; }
 }
 
-.input-box {
-    @apply w-full flex justify-between gap-3 text-sm text-black py-3 bg-slate-100 rounded px-4 my-3 outline-none border border-slate-200
-}
-
-.btn-primary {
-    @apply w-full text-center text-white bg-primary rounded-xl px-4 py-3 hover:bg-cyan-700 hover:cursor-pointer transition-all
-}
-
-.card {
-    @apply p-2 md:py-4 md:px-6 bg-white shadow-md shadow-gray-200 rounded-md
-}
-
-.add-btn {
-    @apply py-2 w-34 px-6 bg-[#EBFFFF] flex justify-between items-center border-[0.5px] border-cyan-300 rounded text-cyan-700 gap-2 hover:cursor-pointer hover:bg-[#CAF6F5]
-}
+.input-box { @apply w-full flex justify-between gap-3 text-sm text-white py-3 bg-[#171d19] rounded-xl px-4 my-3 outline-none border border-[#2a382d]; }
+.input-box input { color-scheme: dark; }
+.btn-primary { @apply w-full text-center text-[#0b0d0c] bg-primary rounded-xl px-4 py-3 hover:bg-[#d1ff94] hover:cursor-pointer transition-all font-semibold; }
+.card { @apply p-4 md:py-5 md:px-6 bg-[#121614] border border-[#26302a] rounded-2xl; }
+.add-btn { @apply py-2 px-4 bg-[#182218] flex justify-between items-center border border-[#40533f] rounded-xl text-primary gap-2 hover:cursor-pointer hover:bg-[#21301e] transition-colors; }
+.fin-dashboard { background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px); background-size: 48px 48px; }
